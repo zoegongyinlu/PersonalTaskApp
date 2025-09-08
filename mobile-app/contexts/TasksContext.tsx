@@ -67,44 +67,65 @@ export const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const newTasks = [newTask, ...tasks];
-    setTasks(newTasks);
-    await saveTasksToStorage(newTasks);
-  }, [tasks]);
+    
+    setTasks(prevTasks => {
+      const newTasks = [newTask, ...prevTasks];
+      // Save to storage asynchronously without blocking state update
+      saveTasksToStorage(newTasks).catch(error => {
+        console.error('Error saving tasks to storage:', error);
+      });
+      return newTasks;
+    });
+  }, []);
 
   const updateTask = useCallback(async (id: string, taskData: Partial<TaskFormData>) => {
-    const newTasks = tasks.map(task =>
-      task.id === id
-        ? {
-            ...task,
-            ...taskData,
-            updatedAt: new Date(),
-          }
-        : task
-    );
-    setTasks(newTasks);
-    await saveTasksToStorage(newTasks);
-  }, [tasks]);
+    setTasks(prevTasks => {
+      const newTasks = prevTasks.map(task =>
+        task.id === id
+          ? {
+              ...task,
+              ...taskData,
+              updatedAt: new Date(),
+            }
+          : task
+      );
+      // Save to storage asynchronously without blocking state update
+      saveTasksToStorage(newTasks).catch(error => {
+        console.error('Error saving tasks to storage:', error);
+      });
+      return newTasks;
+    });
+  }, []);
 
   const deleteTask = useCallback(async (id: string) => {
-    const newTasks = tasks.filter(task => task.id !== id);
-    setTasks(newTasks);
-    await saveTasksToStorage(newTasks);
-  }, [tasks]);
+    setTasks(prevTasks => {
+      const newTasks = prevTasks.filter(task => task.id !== id);
+      // Save to storage asynchronously without blocking state update
+      saveTasksToStorage(newTasks).catch(error => {
+        console.error('Error saving tasks to storage:', error);
+      });
+      return newTasks;
+    });
+  }, []);
 
   const toggleTaskStatus = useCallback(async (id: string) => {
-    const newTasks = tasks.map(task =>
-      task.id === id
-        ? {
-            ...task,
-            status: (task.status === 'pending' ? 'completed' : 'pending') as TaskStatus,
-            updatedAt: new Date(),
-          }
-        : task
-    );
-    setTasks(newTasks);
-    await saveTasksToStorage(newTasks);
-  }, [tasks]);
+    setTasks(prevTasks => {
+      const newTasks = prevTasks.map(task =>
+        task.id === id
+          ? {
+              ...task,
+              status: (task.status === 'pending' ? 'completed' : 'pending') as TaskStatus,
+              updatedAt: new Date(),
+            }
+          : task
+      );
+      // Save to storage asynchronously without blocking state update
+      saveTasksToStorage(newTasks).catch(error => {
+        console.error('Error saving tasks to storage:', error);
+      });
+      return newTasks;
+    });
+  }, []);
 
   const searchTasks = useCallback((query: string): Task[] => {
     if (!query.trim()) return tasks;

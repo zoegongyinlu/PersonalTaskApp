@@ -22,20 +22,11 @@ export default function RootLayout() {
     // Listen for app state changes
     const subscription = AppState.addEventListener('change', handleAppStateChange);
 
-    // Cleanup function to clear tasks when component unmounts
-    const cleanup = async () => {
-      try {
-        await TasksStorageManager.clearTasks();
-        console.log('Tasks cleared on app unmount');
-      } catch (error) {
-        console.error('Error clearing tasks on app unmount:', error);
-      }
-    };
-
     // Return cleanup function
     return () => {
       subscription?.remove();
-      cleanup();
+      // Don't call async functions in cleanup - this can cause DOM issues
+      // The app state change handler will handle clearing tasks when needed
     };
   }, []);
 
