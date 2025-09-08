@@ -13,22 +13,6 @@ A modern, feature-rich mobile task management application built with React Nativ
 - **Task Details Screen**: View comprehensive task information
 - **Search Functionality**: Filter tasks by title or description
 
-### User Experience
-- **Modern UI Design**: Clean, intuitive interface with Material Design principles
-- **Responsive Layout**: Optimized for both iOS and Android devices
-- **Smooth Navigation**: Seamless screen transitions using Expo Router
-- **Visual Status Indicators**: Color-coded status badges and completion states
-- **Confirmation Dialogs**: Safe deletion with user confirmation
-
-### Technical Features
-- **TypeScript**: Full type safety with comprehensive interfaces
-- **React Context**: Shared state management across all components using React Context API
-- **React Hooks**: Modern state management with useState, useCallback, and useEffect
-- **Expo Router**: File-based navigation system
-- **Data Persistence**: Tasks persist between app sessions using AsyncStorage
-- **App Lifecycle Management**: Automatic task clearing when app is terminated or backgrounded
-- **Mock Data**: Pre-populated with sample tasks for immediate testing
-- **Clean Architecture**: Well-organized component structure with separation of concerns
 
 ## Screenshots
 
@@ -37,15 +21,6 @@ The app includes the following screens:
 - **Add Task Screen**: Form to create new tasks
 - **Edit Task Screen**: Form to modify existing tasks
 - **Task Details Screen**: Comprehensive task information view
-
-## Technology Stack
-
-- **React Native**: 0.72.10
-- **Expo**: ~49.0.15
-- **TypeScript**: ~5.8.3
-- **Expo Router**: ^2.0.15
-- **React**: 18.2.0
-- **AsyncStorage**: @react-native-async-storage/async-storage (for data persistence)
 
 ## Project Structure
 
@@ -80,20 +55,13 @@ mobile-app/
 
 ## Installation & Setup
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-- Expo CLI (`npm install -g @expo/cli`)
-- iOS Simulator (for iOS development) or Android Studio (for Android development)
-
 ### Installation Steps
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/zoegongyinlu/PersonalTaskApp.git
    cd PersonalTaskApp
    ```
-
 2. **Navigate to the mobile app directory**
    ```bash
    cd mobile-app
@@ -109,9 +77,9 @@ mobile-app/
    npm start
    ```
 
-5. **Run on your preferred platform**
+5. **Run on your preferred platform** 
    ```bash
-   # For iOS
+   # For iOS (expo go tested)
    npm run ios
    
    # For Android
@@ -144,14 +112,7 @@ mobile-app/
 - **Add Task**: Use the floating action button or header button
 - **Edit Task**: Access from task details screen
 
-## Development
 
-### Code Quality Standards
-- **TypeScript**: All components and functions are fully typed
-- **Clean Code**: Meaningful variable and function names
-- **Component Architecture**: Reusable, focused components
-- **Error Handling**: Proper error states and user feedback
-- **Performance**: Optimized with useCallback and proper state management
 
 ### Key Components
 
@@ -165,7 +126,7 @@ mobile-app/
 - Form validation and error handling
 - Consistent styling and user experience
 
-#### TasksContext & useTasks Hook
+#### TasksContext & useTasks Hook (custom)
 - **Shared State Management**: React Context provides centralized state across all components
 - **Real-time Updates**: Changes in one component immediately reflect in all other components
 - **Task Operations**: Complete CRUD operations (add, edit, delete, toggle status)
@@ -182,17 +143,3 @@ The app uses **AsyncStorage** to persist task data between app sessions:
 - **Automatic Saving**: All changes (add, edit, delete, toggle status) are automatically saved
 - **Cross-Session Persistence**: Data survives app restarts and device reboots
 - **Storage Management**: Uses `TasksStorageManager` utility for clean data operations
-- **Error Handling**: Graceful fallback to mock data if storage operations fail
-- **App Lifecycle Management**: Tasks are automatically cleared when the app is terminated or backgrounded
-
-### State Management Architecture
-
-The app uses a modern React Context-based architecture for state management:
-
-- **TasksContext**: Centralized state provider that manages all task-related data
-- **Shared State**: All components access the same state instance, ensuring consistency
-- **Real-time Sync**: Changes made in any component immediately reflect across the entire app
-- **Performance Optimized**: Uses React hooks (useCallback, useMemo) for optimal re-rendering
-- **Type Safety**: Full TypeScript support with comprehensive interfaces
-
-
